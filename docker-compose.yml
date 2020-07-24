@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+
+  app:
+    container_name: app_service
+    build:
+      context: ./app
+    restart: always
+    env_file:
+      - ./env/.env.dev
+    volumes:
+      - ./app/:/usr/src/app/
+    ports:
+      - 8000:8000
+    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - db
+    networks:
+      - realestate_network
+
+  db:
+    container_name: db_service
+    image: postgres:12
+    env_file:
+      - ./env/.env.dev.db
+    volumes:
+      - postgresql_volume:/var/lib/postgresql/data
+    networks:
+      - realestate_network
+
+volumes:
+  postgresql_volume:
+
+networks:
+  realestate_network:
+    driver: bridge
