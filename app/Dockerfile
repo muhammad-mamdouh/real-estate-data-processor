@@ -7,7 +7,8 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # Set the working directory
-WORKDIR /usr/src/app
+ENV HOME=/app
+WORKDIR /app/realestate_module
 
 # Install environment dependencies
 COPY ./requirements/base.txt .
@@ -35,7 +36,7 @@ RUN useradd app_user \
 # Copy and run the entrypoint script
 COPY ./entrypoint.sh .
 RUN chmod 755 entrypoint.sh
-ENTRYPOINT ["sh", "/app/entrypoint.sh"]
+ENTRYPOINT ["sh", "/app/realestate_module/entrypoint.sh"]
 
 # Switch to ach user
 USER app_user

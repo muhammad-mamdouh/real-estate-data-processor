@@ -10,7 +10,7 @@ services:
     env_file:
       - ./env/.env.dev
     volumes:
-      - ./app/:/usr/src/app/
+      - ./app/:/app/realestate_module
     ports:
       - 8000:8000
     command: python manage.py runserver 0.0.0.0:8000
