@@ -22,7 +22,9 @@ THIRD_PARTY_APPS = [
     'rest_framework',
 ]
 
-USER_DEFINED_APPS = []
+USER_DEFINED_APPS = [
+    'core',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
