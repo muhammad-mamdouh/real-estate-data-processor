@@ -110,6 +110,18 @@ STATIC_URL = '/static/'
 
 LOGGING = CUSTOM_LOGGING
 
+# Django Rest Framework Configurations
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 2,
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+    ),
+}
+
 # Admin Panel Typos
 ADMIN_SITE_HEADER = 'Real Estate Admin Panel'
 ADMIN_SITE_TITLE = 'RealEstate'

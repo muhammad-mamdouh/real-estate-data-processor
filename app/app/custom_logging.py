@@ -52,19 +52,12 @@ CUSTOM_LOGGING = {
             'class': 'logging.FileHandler',
             'filename': 'logs/file_upload.log',
         },
-        'aggregate_specific_asset': {
+        'assets_info_aggregation': {
             'level': 'DEBUG',
             'filters': ['request_id'],
             'formatter': 'detail',
             'class': 'logging.FileHandler',
-            'filename': 'logs/aggregate_specific_asset.log',
-        },
-        'aggregate_all_assets': {
-            'level': 'DEBUG',
-            'filters': ['request_id'],
-            'formatter': 'detail',
-            'class': 'logging.FileHandler',
-            'filename': 'logs/aggregate_all_assets.log',
+            'filename': 'logs/assets_info_aggregation.log',
         },
     },
     'loggers': {
@@ -82,13 +75,8 @@ CUSTOM_LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
-        'aggregate_specific_asset': {
-            'handlers': ['aggregate_specific_asset'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'aggregate_all_assets': {
-            'handlers': ['aggregate_all_assets'],
+        'assets_info_aggregation': {
+            'handlers': ['assets_info_aggregation'],
             'level': 'DEBUG',
             'propagate': True,
         },

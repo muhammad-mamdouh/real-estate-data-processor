@@ -3,11 +3,22 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
+if settings.DEBUG:
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+    ]
+else:
+    urlpatterns = [
+        path('secure-portal/', admin.site.urls)
+    ]
+
+
+urlpatterns += [
+    path('api/secure/v1/', include('core.urls', namespace='core_v1')),
+    path('api/secure/v2/', include('core.urls', namespace='core_v2')),
 ]
 
 # Admin site settings
