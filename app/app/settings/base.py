@@ -107,6 +107,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+STATIC_ROOT = '/app/staticfiles'
+MEDIA_ROOT = '/app/mediafiles'
 
 LOGGING = CUSTOM_LOGGING
 
@@ -114,12 +118,6 @@ LOGGING = CUSTOM_LOGGING
 REST_FRAMEWORK = {
     'PAGE_SIZE': 2,
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-    ),
-    'DEFAULT_PARSER_CLASSES': (
-        'rest_framework.parsers.JSONParser',
-    ),
 }
 
 # Admin Panel Typos

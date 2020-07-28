@@ -9,6 +9,8 @@ ENV PYTHONUNBUFFERED 1
 # Set the working directory
 ENV HOME=/app
 WORKDIR /app/realestate_module
+RUN mkdir $HOME/staticfiles \
+    && mkdir $HOME/mediafiles
 
 # Install environment dependencies
 COPY ./requirements/base.txt .
