@@ -170,5 +170,29 @@ class Unit(AbstractTimeStamp, AbstractUnitType):
         ordering = ["-created_at", "-updated_at"]
 
     def __str__(self):
-        "String representation for the unit model objects"
+        """String representation for the unit model objects"""
         return self.reference
+
+
+class Document(AbstractTimeStamp):
+    """
+    Document model is responsible for validating and saving the portfolio data to be processed.
+    """
+
+    file = models.FileField(
+            _("File"),
+            upload_to='documents/%Y/%m/%d/',
+            max_length=100,
+            null=False,
+            blank=False
+    )
+
+    class Meta:
+        verbose_name = _("Document")
+        verbose_name_plural = _("Documents")
+        get_latest_by = "-created_at"
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        """String representation for the document model objects"""
+        return self.file.name

@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 from .abstract_models import AbstractTimeStamp, AbstractUnitType
-from .main_models import Asset, Portfolio, Unit
+from .main_models import Asset, Document, Portfolio, Unit

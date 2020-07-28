@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
-from .models import Asset, Portfolio, Unit
+from .models import Asset, Document, Portfolio, Unit
 
 
 @admin.register(Portfolio)
@@ -64,3 +64,16 @@ class UnitAdmin(admin.ModelAdmin):
             'fields': ('lease_start', 'lease_end', 'created_at', 'updated_at')
         }),
     )
+
+
+@admin.register(Document)
+class DocumentAdmin(admin.ModelAdmin):
+    """
+    Admin model for customizing the Document admin view
+    """
+
+    list_display = ['file']
+
+    def has_add_permission(self, request):
+        """Prevent admin users from uploading sheets from the admin view"""
+        return False
