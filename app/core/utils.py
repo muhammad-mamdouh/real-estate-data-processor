@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from datetime import datetime
+import os
+import random
+import string
+
 from django.utils.translation import gettext_lazy as _
 
 
@@ -29,3 +34,19 @@ def logging_message(logger, head, request, message):
     :return: The message will be logged into the specified logger
     """
     return logger.debug(_(f"{head}\nUser: {request.user} -- IP Address: {get_client_ip(request)}\n{message}"))
+
+
+def update_filename(instance, filename):
+    """
+    update document name
+    :param instance: doc instance
+    :param filename: filename of uploaded file
+    :return: file name updated
+    """
+    now = datetime.now()
+    path = f"documents/{now.year}/{now.month}/{now.day}/"
+    file, ext = filename.split('.')
+    filename = file + '_' + '_' + \
+               ''.join(random.choices(string.ascii_uppercase + string.digits, k=10)) + \
+               '.' + ext
+    return os.path.join(path, filename)

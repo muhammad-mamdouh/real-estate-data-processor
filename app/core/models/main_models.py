@@ -8,6 +8,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from . import AbstractTimeStamp, AbstractUnitType
+from ..utils import update_filename
 
 
 class Portfolio(AbstractTimeStamp):
@@ -181,7 +182,7 @@ class Document(AbstractTimeStamp):
 
     file = models.FileField(
             _("File"),
-            upload_to='documents/%Y/%m/%d/',
+            upload_to=update_filename,
             max_length=100,
             null=False,
             blank=False
