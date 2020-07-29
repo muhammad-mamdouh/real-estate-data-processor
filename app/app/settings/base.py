@@ -124,3 +124,14 @@ REST_FRAMEWORK = {
 ADMIN_SITE_HEADER = 'Real Estate Admin Panel'
 ADMIN_SITE_TITLE = 'RealEstate'
 ADMIN_INDEX_TITLE = 'RealEstate Administration'
+
+# Celery configs
+# Send results back as AMQP messages
+CELERY_RESULT_BACKEND = 'rpc://'
+CELERY_BROKER_URL = config('CELERY_BROKER_URL')
+CELERY_RESULT_ACCEPT_CONTENT = ['json']
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_PERSISTENT = False
+CELERY_TIMEZONE = 'Africa/Cairo'
+MAX_TASK_RETRIES = 10

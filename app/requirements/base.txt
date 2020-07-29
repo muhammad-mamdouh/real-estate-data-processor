@@ -1,5 +1,6 @@
 asgiref==3.2.10
 backcall==0.2.0
+celery==4.4.6
 decorator==4.4.2
 Django==3.0
 django-extensions==3.0.3
