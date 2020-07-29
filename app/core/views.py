@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 import logging
 
-from rest_framework import status
+from rest_framework import status, viewsets
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -11,8 +11,8 @@ from rest_framework.views import APIView
 from django.utils.translation import gettext as _
 
 from .mixins import APIViewPaginatorMixin
-from .models import Asset
-from .serializers import AssetInfoAggregationReadSerializer, AssetInfoAggregationWriteSerializer
+from .models import Asset, Document
+from .serializers import AssetInfoAggregationReadSerializer, AssetInfoAggregationWriteSerializer, DocumentSerializer
 from .utils import logging_message
 
 ASSETS_INFO_AGGREGATION_LOGGER = logging.getLogger("assets_info_aggregation")
@@ -73,3 +73,12 @@ class AssetInfoAggregationAPIView(APIViewPaginatorMixin, APIView):
         except Exception as err:
             logging_message(ASSETS_INFO_AGGREGATION_LOGGER, "[INTERNAL ERROR]", request, err.args)
             return Response({"Internal Error": EXTERNAL_ERROR_MSG}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class UploadDocumentViewSet(viewsets.ModelViewSet):
+    """
+    Viewset for handling the uploaded portfolio data sheets
+    """
+
+    queryset = Document.objects.all()
+    serializer_class = DocumentSerializer
