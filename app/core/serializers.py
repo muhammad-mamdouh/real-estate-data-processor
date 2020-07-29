@@ -101,7 +101,8 @@ class AssetInfoAggregationWriteSerializer(serializers.ModelSerializer):
             total_rentable_area = sum([unit.size for unit in asset_object.units.all()])
             tenants_values_list = []
             for unit in all_tenanted_units:
-                remaining_years = unit.lease_end.year - timezone.now().year
+                lease_end_date = unit.lease_end.year if unit.lease_end else timezone.now().year
+                remaining_years = lease_end_date - timezone.now().year
                 tenant_occupation_ratio = unit.size/total_rentable_area
                 tenants_values_list.append((round((tenant_occupation_ratio * remaining_years), 3)))
 

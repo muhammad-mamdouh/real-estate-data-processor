@@ -118,7 +118,6 @@ class Unit(AbstractTimeStamp, AbstractUnitType):
     reference = models.CharField(
             _("Unit Reference"),
             db_index=True,
-            unique=True,
             max_length=254,
             null=False,
             blank=False
@@ -138,7 +137,6 @@ class Unit(AbstractTimeStamp, AbstractUnitType):
             _("Rent"),
             max_digits=12,
             decimal_places=2,
-            default='',
             null=True,
             blank=True
     )
@@ -152,14 +150,12 @@ class Unit(AbstractTimeStamp, AbstractUnitType):
     lease_start = models.DateField(
             _("Lease Start"),
             db_index=True,
-            default='',
             null=True,
             blank=True
     )
     lease_end = models.DateField(
             _("Lease End"),
             db_index=True,
-            default='',
             null=True,
             blank=True
     )

@@ -7,6 +7,7 @@ django-extensions==3.0.3
 django-log-request-id==1.5.0
 django-werkzeug-debugger-runserver==0.3.1
 djangorestframework==3.11.0
+httpie==2.2.0
 ipython==7.16.1
 ipython-genutils==0.2.0
 jedi==0.17.2
@@ -25,3 +26,4 @@ sqlparse==0.3.1
 traitlets==4.3.3
 wcwidth==0.2.5
 Werkzeug==1.0.1
+xlrd==1.2.0

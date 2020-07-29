@@ -13,9 +13,11 @@ from django.utils.translation import gettext as _
 from .mixins import APIViewPaginatorMixin
 from .models import Asset, Document
 from .serializers import AssetInfoAggregationReadSerializer, AssetInfoAggregationWriteSerializer, DocumentSerializer
+from .tasks import PortfolioDataProcessorTask
 from .utils import logging_message
 
 ASSETS_INFO_AGGREGATION_LOGGER = logging.getLogger("assets_info_aggregation")
+FILE_UPLOAD_LOGGER = logging.getLogger("file_upload")
 
 EXTERNAL_ERROR_MSG = _("Process stopped during an internal error, please try again or contact your support team")
 
@@ -42,7 +44,7 @@ class AssetInfoAggregationAPIView(APIViewPaginatorMixin, APIView):
             queryset = Asset.objects.all()
 
         if queryset.count() > 0:
-            queryset = queryset.prefetch_related("units")
+            queryset = queryset.prefetch_related("units").order_by("-updated_at")
             page = self.paginate_queryset(queryset)
 
             if page is not None:
@@ -82,3 +84,27 @@ class UploadDocumentViewSet(viewsets.ModelViewSet):
 
     queryset = Document.objects.all()
     serializer_class = DocumentSerializer
+
+    def _log_upload_success_message(self, request, doc_instance):
+        """
+        Log details about the document that passed validations
+        :param request: the request object being served
+        :param doc_instance: the document instance that passed validations
+        """
+        message = f"File name: {doc_instance.file.name}"
+        logging_message(FILE_UPLOAD_LOGGER, "[FILE UPLOADED SUCCESSFULLY]", request, message)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        PortfolioDataProcessorTask.delay(int(serializer.instance.id))
+        self._log_upload_success_message(request, serializer.instance)
+        return Response({
+            "File Uploaded": serializer.data,
+            "Status": _(
+                    "File is validated successfully and is being processed now, "
+                    "you'll receive a follow up email whenever the processing is completed!"
+            )
+        }, status=status.HTTP_201_CREATED, headers=headers)

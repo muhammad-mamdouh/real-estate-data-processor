@@ -52,6 +52,13 @@ CUSTOM_LOGGING = {
             'class': 'logging.FileHandler',
             'filename': 'logs/file_upload.log',
         },
+        'queue_tasks': {
+            'level': 'DEBUG',
+            'filters': ['request_id'],
+            'formatter': 'detail',
+            'class': 'logging.FileHandler',
+            'filename': 'logs/queue_tasks.log',
+        },
         'assets_info_aggregation': {
             'level': 'DEBUG',
             'filters': ['request_id'],
@@ -72,6 +79,11 @@ CUSTOM_LOGGING = {
         },
         'file_upload': {
             'handlers': ['file_upload'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'queue_tasks': {
+            'handlers': ['queue_tasks'],
             'level': 'DEBUG',
             'propagate': True,
         },
