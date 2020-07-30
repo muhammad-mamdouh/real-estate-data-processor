@@ -6,6 +6,7 @@ import logging
 from rest_framework import status, viewsets
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
+from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 from rest_framework.views import APIView
 
 from django.utils.translation import gettext as _
@@ -29,6 +30,7 @@ class AssetInfoAggregationAPIView(APIViewPaginatorMixin, APIView):
 
     read_serializer = AssetInfoAggregationReadSerializer
     write_serializer = AssetInfoAggregationWriteSerializer
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
 
     def list(self, request, *args, **kwargs):
         """Serializes response of asset(s) aggregated info"""
@@ -84,6 +86,7 @@ class UploadDocumentViewSet(viewsets.ModelViewSet):
 
     queryset = Document.objects.all()
     serializer_class = DocumentSerializer
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
 
     def _log_upload_success_message(self, request, doc_instance):
         """

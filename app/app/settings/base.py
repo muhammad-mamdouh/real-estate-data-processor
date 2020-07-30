@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from decouple import config
-import datetime
 import os
 
 from ..custom_logging import CUSTOM_LOGGING
@@ -118,6 +117,13 @@ LOGGING = CUSTOM_LOGGING
 REST_FRAMEWORK = {
     'PAGE_SIZE': 2,
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.AnonRateThrottle',
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '5/min',
+        'user': '100/hour',
+    },
 }
 
 # Admin Panel Typos
