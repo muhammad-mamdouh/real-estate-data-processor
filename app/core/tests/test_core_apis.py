@@ -12,6 +12,7 @@ from ..models import Portfolio, Asset, Unit
 
 
 ASSETS_INFO_AGGREGATION_API_URL = reverse("core:aggregate_assets")
+UPLOAD_FILE_API_URL = reverse("core:upload_file-list")
 
 
 class PublicCoreAPIsTests(TestCase):
@@ -83,3 +84,11 @@ class PublicCoreAPIsTests(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["results"][0]["address"], asset_obj.address)
+
+    def test_uploading_portfolio_data_sheet_via_api(self):
+        """Test uploading portfolio data in a sheet using upload API endpoint"""
+        with open("media/portfolio_data_sheet.csv") as fp:
+            response = self.client.post(UPLOAD_FILE_API_URL, {"file": fp})
+            self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+            self.assertTrue(response.data["File Uploaded"])
+            self.assertTrue(response.data["Status"])

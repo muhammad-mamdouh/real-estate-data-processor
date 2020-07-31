@@ -8,7 +8,7 @@ from .views import AssetInfoAggregationAPIView, UploadDocumentViewSet
 
 app_name = 'core'
 router = DefaultRouter()
-router.register('', UploadDocumentViewSet)
+router.register('', UploadDocumentViewSet, basename='upload_file')
 
 urlpatterns = [
     path('upload/', include(router.urls)),

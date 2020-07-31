@@ -10,10 +10,11 @@
 3. [Requirements](#requirements)
 4. [Build the docker image](#build-the-docker-image)
 5. [Run the development server using docker compose](#run-the-development-server-using-docker-compose)
-6. [Test the Upload File API Endpoint](#test-the-upload-file-api-endpoint)
-7. [Check Your Uploaded Data Representation From the Django Admin Panel](#check-your-uploaded-data-representation-from-the-django-admin-panel)
-8. [Test the Assets Info Aggregation API Endpoint](#test-the-assets-info-aggregation-api-endpoint)
-9. [License](#license)
+6. [Run the Test Cases](#run-the-test-cases)
+7. [Test the Upload File API Endpoint](#test-the-upload-file-api-endpoint)
+8. [Check Your Uploaded Data Representation From the Django Admin Panel](#check-your-uploaded-data-representation-from-the-django-admin-panel)
+9. [Test the Assets Info Aggregation API Endpoint](#test-the-assets-info-aggregation-api-endpoint)
+10. [License](#license)
 
 
 ## Stack Used
@@ -43,7 +44,7 @@ To be able to make this app up and running follow along with me.
 ## Build the docker image
 
 ```
-# From your terminal, within the same code_challenge directory
+# From your terminal, extract code_challenge.zip and cd into the code_challenge directory
 
 docker-compose build
 ```
@@ -55,6 +56,14 @@ docker-compose build
 # After the build is finished with a success message you're good to go to make the server up and running
 
 docker-compose up
+```
+
+
+## Run the Test Cases
+```
+# From your terminal, within the same code_challenge directory
+
+docker-compose exec app python manage.py test
 ```
 
 
