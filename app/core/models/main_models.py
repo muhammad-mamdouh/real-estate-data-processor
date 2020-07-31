@@ -86,7 +86,7 @@ class Asset(AbstractTimeStamp):
                 MinValueValidator(1700),
                 MaxValueValidator(datetime.now().year),
             ],
-            help_text=("Use the following format: YYYY"),
+            help_text=_("Use the following format: YYYY"),
             null=False,
             blank=False
     )
